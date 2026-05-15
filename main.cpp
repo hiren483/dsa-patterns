@@ -1,24 +1,20 @@
 class Solution {
 public:
-    int compress(vector<char>& chars) {
-        int n = chars.size();
-
-        int l = 0;         
-        int write = 0;          
-
-        for (int r = 0; r < n; r++) {
-            if (r == n - 1 || chars[r] != chars[r+1]) {
-                int freq = r - l +1;
-                chars[write++] = chars[l];
-                if (freq > 1) {
-                    string count = to_string(freq);
-                    for (char c : count) {
-                        chars[write++] = c;
-                    }
-                }
-                l = r+1;
-            }
+    int maxArea(vector<int>& height) {
+    int n = height.size();
+    int l = 0;
+    int r = n-1;
+    int max_area=0;
+    while(r>l){
+        int area = min(height[l],height[r])*(r-l);
+        int max_area=max(max_area,area);
+        if(height[l]<height[r]){
+            l++;
         }
-        return write;  
+        else{
+            r--;
+        }
+    }
+    return max_area;
     }
 };

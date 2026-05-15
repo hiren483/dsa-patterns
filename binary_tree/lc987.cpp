@@ -11,30 +11,56 @@
  */
 class Solution {
 public:
+    // map<int , map<int , multiset<int>>> nodes;
+    // void mark_nodes(TreeNode* root ,int col , int row){
+    //     if(root == NULL){
+    //         return;
+    //     }
+    //     nodes[col][row].insert(root->val);
+    //     if(root->left){
+    //         mark_nodes(root->left , col-1 , row +1);
+    //     }
+    //     if(root->right){
+    //         mark_nodes(root->right , col+1 , row +1);
+    //     }
+    // }
+    // vector<vector<int>> verticalTraversal(TreeNode* root) {
+    //     vector<vector<int>> result;
+    //     mark_nodes(root , 0 , 0);
+    //     for(auto &col : nodes){
+    //         vector<int> column;
+    //         for(auto &row : col.second){
+    //             column.insert(column.end(),row.second.begin(),row.second.end());
+    //         }
+    //         result.push_back(column);
+    //     }
+    //     return result;
+    // }
     map<int , map<int , multiset<int>>> nodes;
-    void mark_nodes(TreeNode* root ,int col , int row){
+    void mark_nodes(TreeNode* root,int row,int col){
         if(root == NULL){
             return;
         }
         nodes[col][row].insert(root->val);
         if(root->left){
-            mark_nodes(root->left , col-1 , row +1);
+            mark_nodes(root->left ,row+1,col-1);
         }
         if(root->right){
-            mark_nodes(root->right , col+1 , row +1);
+            mark_nodes(root->right ,row+1,col+1);
         }
     }
+
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        vector<vector<int>> result;
-        mark_nodes(root , 0 , 0);
-        for(auto &col : nodes){
+       vector<vector<int>> result;
+       mark_nodes(root,0,0);
+       for(auto &col : nodes){
             vector<int> column;
-            for(auto &row : col.second){
+            for(auto &row: col.second){
                 column.insert(column.end(),row.second.begin(),row.second.end());
             }
             result.push_back(column);
-        }
-        return result;
+       }
+       return result;
     }
     
 };

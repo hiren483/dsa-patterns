@@ -11,21 +11,16 @@
  */
 class Solution {
 public:
-
-    bool mirror(TreeNode* left_root,TreeNode* right_root){
-        if(left_root==NULL && right_root == NULL){
+    bool check(TreeNode* root , int val){
+        if(root==NULL){
             return true;
         }
-        if(left_root==NULL || right_root == NULL){
+        if(root->val != val){
             return false;
         }
-        if(left_root->val != right_root->val){
-            return false;
-        }
-        return mirror(left_root->left,right_root->right)&&mirror(left_root->right,right_root->left);
+        return check(root->left)&&check(root->right);
     }
-
-    bool isSymmetric(TreeNode* root) {
-        return mirror(root->left, root->right);
+    bool isUnivalTree(TreeNode* root) {
+        return check(root,root->val);
     }
 };
